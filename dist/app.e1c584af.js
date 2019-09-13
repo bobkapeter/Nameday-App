@@ -943,4 +943,4 @@ module.exports=require("./lib/axios");
 },{"./components/CountrySelect.vue":"d5UX","./components/TheHeader.vue":"6dFy","./components/ActualNameday.vue":"nJTl","./components/TheSearchForm.vue":"rdUr","./components/TheFooter.vue":"ZkQI"}],"29uZ":[function(require,module,exports) {
 "use strict";var e=require("vue"),r=n(e),t=require("lodash"),u=require("babel-polyfill"),d=n(u),a=require("./TheApp.vue"),l=n(a);function n(e){return e&&e.__esModule?e:{default:e}}new r.default({el:"#app",render:function(e){return e(l.default)}});var o=["#f32121","#4321f3","#125dd0","#03a9f4","#108c26","#ff4308","#d2a009","#cca531"],f=(0,t.random)(0,o.length-1),c=o[f];document.documentElement.style.setProperty("--primary-color",c),document.body.dataset.hidden="false";
 },{"vue":"+ELz","lodash":"6Vf+","babel-polyfill":"5+AP","./TheApp.vue":"0AYn"}]},{},["29uZ"], null)
-//# sourceMappingURL=/app.6c400c5e.map
+//# sourceMappingURL=app.6c400c5e.map
