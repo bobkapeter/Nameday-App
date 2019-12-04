@@ -21,7 +21,6 @@
 	</section>
 </template>
 
-
 <script>
 import axios from "axios";
 
@@ -49,29 +48,26 @@ export default {
 		getNameday(url) {
 			return axios
 				.get(url)
-				.then(response => response.data.data)
+				.then(response => response.data.data[0])
 				.catch(error => null);
 		},
 		async getNamedayForToday() {
-			const url = `https://api.abalin.net/get/today?country=${this.code}`;
-			const key = `name_${this.code}`;
+			const url = `https://api.abalin.net/today?country=${this.code}`;
 			const data = await this.getNameday(url);
 
-			this.today = data ? data[key] : "";
+			this.today = data ? data.namedays[this.code] : "";
 		},
 		async getNamedayForTomorrow() {
-			const url = `https://api.abalin.net/get/tomorrow?country=${this.code}`;
-			const key = `name_${this.code}`;
+			const url = `https://api.abalin.net/tomorrow?country=${this.code}`;
 			const data = await this.getNameday(url);
 
-			this.tomorrow = data ? data[key] : "";
+			this.tomorrow = data ? data.namedays[this.code] : "";
 		},
 		async getNamedayForYesterday() {
-			const url = `https://api.abalin.net/get/yesterday?country=${this.code}`;
-			const key = `name_${this.code}`;
+			const url = `https://api.abalin.net/yesterday?country=${this.code}`;
 			const data = await this.getNameday(url);
 
-			this.yesterday = data ? data[key] : "";
+			this.yesterday = data ? data.namedays[this.code] : "";
 		},
 		update() {
 			this.getNamedayForToday();
@@ -81,7 +77,6 @@ export default {
 	}
 };
 </script>
-
 
 <style scoped>
 .actual-nameday {

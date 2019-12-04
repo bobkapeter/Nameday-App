@@ -15,16 +15,28 @@
 
 		<!-- Text Input - Name -->
 		<template v-if="currentTab === 'Podľa mena'">
-			<input placeholder="Meno" type="text" key="input-name" v-model="inputName" />
+			<input
+				placeholder="Meno"
+				type="text"
+				key="input-name"
+				v-model="inputName"
+			/>
 		</template>
 
 		<!-- Text Input - Date -->
 		<template v-else>
-			<input type="date" key="input-date" v-model="inputDate" />
+			<input
+				type="date"
+				key="input-date"
+				v-model="inputDate"
+			/>
 		</template>
 
 		<!-- Error Message -->
-		<p class="error" :class="{visible : error}">{{ error }}</p>
+		<p
+			class="error"
+			:class="{visible : error}"
+		>{{ error }}</p>
 
 		<!-- Results Component -->
 		<the-results :results="results"></the-results>
@@ -47,6 +59,7 @@ export default {
 	},
 	data() {
 		return {
+			apiUrl: "https://api.abalin.net/",
 			tabs: ["Podľa mena", "Podľa dátumu"],
 			currentTab: "Podľa mena",
 
@@ -102,7 +115,7 @@ export default {
 				return;
 			}
 
-			const url = `https://api.abalin.net/get/getdate?name=${this.inputName}&calendar=${this.countryCode}`;
+			const url = `${this.apiUrl}/getdate?name=${this.inputName}&country=${this.countryCode}`;
 			const data = await this.getNameday(url);
 
 			if (data) {
@@ -120,12 +133,16 @@ export default {
 			}
 
 			const [, month, day] = this.inputDate.split("-");
-			const url = `https://api.abalin.net/get/namedays?day=${day}&month=${month}&country=${this.countryCode}`;
+			const qPar1 = `country=${this.countryCode}`;
+			const qPar2 = `month=${Number(month)}`;
+			const qPar3 = `day=${Number(day)}`;
+
+			const url = `${this.apiUrl}/namedays?${qPar1}&${qPar2}&${qPar3}`;
 			const { data } = await this.getNameday(url);
 
 			if (data) {
-				const key = `name_${this.countryCode}`;
-				const { day, month, [key]: name } = data;
+				const { day, month } = data[0].dates;
+				const name = data[0].namedays[this.countryCode];
 
 				this.results = [{ day, month, name }];
 				this.error = "";
